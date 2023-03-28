@@ -40,24 +40,24 @@ public class Proxy {
 
          */
         //1.获取代理对象前, 真实对象访问
-//        Speech professor = new Professor1();
+//        AbstractSpeech professor = new Professor1();
 //        professor.speech();
         //2.获取代理对象后, 真实对象访问
-//        Speech professor = new Professor1();
-//        Speech proxy = professor.getProxy();
+//        AbstractSpeech professor = new Professor1();
+//        AbstractSpeech proxy = professor.getProxy();
 //        professor.speech();
         //3.获取代理对象前, 非指定代理对象访问
-//        Speech professor = new Professor1();
+//        AbstractSpeech professor = new Professor1();
 //        ISpeech proxy1 = new ProfessorProxy1(professor);
 //        proxy1.speech();
         //4.获取代理对象后, 非指定代理对象访问
-//        Speech professor = new Professor1();
-//        Speech proxy = professor.getProxy();
+//        AbstractSpeech professor = new Professor1();
+//        AbstractSpeech proxy = professor.getProxy();
 //        ISpeech proxy1 = new ProfessorProxy1(professor);
 //        proxy1.speech();
         //5.获取代理对象后, 指定代理对象访问
-        Speech professor = new Professor1();
-        Speech proxy = professor.getProxy();
+        AbstractSpeech professor = new Professor1();
+        AbstractSpeech proxy = professor.getProxy();
         proxy.speech();
     }
 }
@@ -108,16 +108,16 @@ class ProfessorProxy implements ISpeech{
 }
 
 //演讲者
-abstract class Speech implements ISpeech{
+abstract class AbstractSpeech implements ISpeech{
     //通过传入代理对象来确认执行结果(指定代理对象调用结果是正确的)
-    protected abstract void speech(Speech proxy);
-    public abstract Speech getProxy();
+    protected abstract void speech(AbstractSpeech proxy);
+    public abstract AbstractSpeech getProxy();
 }
 
 //教授
-class Professor1 extends Speech {
+class Professor1 extends AbstractSpeech {
 
-    private Speech proxy;
+    private AbstractSpeech proxy;
 
     @Override
     public void speech() {
@@ -126,7 +126,7 @@ class Professor1 extends Speech {
     }
 
     @Override
-    protected void speech(Speech proxy) {
+    protected void speech(AbstractSpeech proxy) {
         //判断是否是指定的代理对象进行调用
         if(this.isProxy(proxy)){
             System.out.println("进行演讲");
@@ -136,12 +136,12 @@ class Professor1 extends Speech {
     }
 
     @Override
-    public Speech getProxy() {
+    public AbstractSpeech getProxy() {
         this.proxy = new ProfessorProxy1(this);
         return this.proxy;
     }
 
-    private boolean isProxy(Speech proxy){
+    private boolean isProxy(AbstractSpeech proxy){
         //proxy为null返回false
         //proxy不为null, 则比较传入的proxy与成员proxy是否是一个, 不是一个返回false
         return Objects.nonNull(proxy) && Objects.equals(this.proxy, proxy);
@@ -150,15 +150,15 @@ class Professor1 extends Speech {
 }
 
 //助理
-class ProfessorProxy1 extends Speech {
-    private final Speech professor;
+class ProfessorProxy1 extends AbstractSpeech {
+    private final AbstractSpeech professor;
 
-    public ProfessorProxy1(Speech professor) {
+    public ProfessorProxy1(AbstractSpeech professor) {
         this.professor = professor;
     }
 
     @Override
-    public Speech getProxy() {
+    public AbstractSpeech getProxy() {
         return this;
     }
 
@@ -179,7 +179,7 @@ class ProfessorProxy1 extends Speech {
     }
 
     @Override
-    protected void speech(Speech proxy) {
+    protected void speech(AbstractSpeech proxy) {
         this.approach();
         this.scheduling();
         //将自己传递进行

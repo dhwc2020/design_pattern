@@ -32,10 +32,10 @@ interface ICarDescription{
     void description();
 }
 
-abstract class BMWCar implements ICarDescription{
+abstract class AbstractBMWCar implements ICarDescription{
     private String name;
 
-    public BMWCar() {
+    public AbstractBMWCar() {
         this.name = "宝马";
     }
 
@@ -48,24 +48,24 @@ abstract class BMWCar implements ICarDescription{
     }
 }
 
-class BMWElectricCar extends BMWCar {
+class BMWElectricCar extends AbstractBMWCar {
     @Override
     public void description() {
         System.out.println(super.getName() + "电动汽车");
     }
 }
 
-class BMWFuelCar extends BMWCar {
+class BMWFuelCar extends AbstractBMWCar {
     @Override
     public void description() {
         System.out.println(super.getName() + "燃油汽车");
     }
 }
 
-abstract class BenzCar implements ICarDescription{
+abstract class AbstractBenzCar implements ICarDescription{
     private String name;
 
-    public BenzCar() {
+    public AbstractBenzCar() {
         this.name = "奔驰";
     }
 
@@ -78,14 +78,14 @@ abstract class BenzCar implements ICarDescription{
     }
 }
 
-class BenzElectricCar extends BenzCar{
+class BenzElectricCar extends AbstractBenzCar{
     @Override
     public void description() {
         System.out.println(super.getName() + "电动汽车");
     }
 }
 
-class BenzFuelCar extends BenzCar{
+class BenzFuelCar extends AbstractBenzCar{
     @Override
     public void description() {
         System.out.println(super.getName() + "燃油汽车");

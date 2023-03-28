@@ -12,8 +12,8 @@ public class FactoryMethod {
     public static void main(String[] args) {
         AbstractHumanFactory humanFactory = new HumanFactory();
 
-        Human yellowHuman = humanFactory.createHuman(YellowHuman.class);
-        Human blackHuman = humanFactory.createHuman(BlackHuman.class);
+        AbstractHuman yellowHuman = humanFactory.createHuman(YellowHuman.class);
+        AbstractHuman blackHuman = humanFactory.createHuman(BlackHuman.class);
 
         yellowHuman.getColor();
         yellowHuman.talk();
@@ -24,13 +24,13 @@ public class FactoryMethod {
 }
 
 //抽象人类
-abstract class Human {
+abstract class AbstractHuman {
     public abstract void getColor();
     public abstract void talk();
 }
 
 //具体人类, 黄种人
-class YellowHuman extends Human{
+class YellowHuman extends AbstractHuman{
 
     @Override
     public void talk() {
@@ -44,7 +44,7 @@ class YellowHuman extends Human{
 }
 
 //具体人类, 黑人
-class BlackHuman extends Human{
+class BlackHuman extends AbstractHuman{
 
     @Override
     public void talk() {
@@ -59,13 +59,13 @@ class BlackHuman extends Human{
 
 //创造人类的抽象工厂
 abstract class AbstractHumanFactory {
-    public abstract <T extends Human> T createHuman(Class<T> clazz);
+    public abstract <T extends AbstractHuman> T createHuman(Class<T> clazz);
 }
 
 //通过反射替换多工厂, 更加灵活(如果构建过程需要个性化赋予初值, 则采用多工厂)
 class HumanFactory extends AbstractHumanFactory{
     @Override
-    public <T extends Human> T createHuman(Class<T> clazz) {
+    public <T extends AbstractHuman> T createHuman(Class<T> clazz) {
         try {
             return clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {

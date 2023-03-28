@@ -3,10 +3,13 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- *  责任链
- *      优点: 1.
+ *  责任链模式
+ *      优点: 1.请求方与接收处理方进行解耦, 请求方不需要知道谁来处理
+ *           2.对于请求链路上的处理器来说, 非常容易扩展
+ *           3.适用于一个请求可以被多个对象处理, 但只有运行时才确定是那个对象
  *
- *      缺点: 1.
+ *      缺点: 1.请求链路过长,会导致性能低下
+ *           2.复杂的链路会导致不易调试
  */
 public class ChainOfResponsibility {
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+
+
 /**
  *  建造者模式
  *      优点: 1.良好的封装性, 客户端不必知道产品的构建和组装
@@ -14,93 +16,93 @@ public class Builder {
         HuaweiBuilder huaweiBuilder = new HuaweiBuilder();
         //指导具体部件的构建顺序和参与个数
         director.construct(huaweiBuilder);
-        Phone huaweiPhone = huaweiBuilder.getResult();
+        AbstractPhone huaweiPhone = huaweiBuilder.getResult();
 
         System.out.println("--------------");
         VIVOBuilder vivoBuilder = new VIVOBuilder();
         director.construct(vivoBuilder);
-        Phone vivoPhone = vivoBuilder.getResult();
+        AbstractPhone vivoPhone = vivoBuilder.getResult();
     }
 }
 
 //抽象产品
-abstract class Phone{
-    private Camera camera;
-    private Screen screen;
-    private CPU cpu;
-    private GPU gpu;
+abstract class AbstractPhone{
+    private AbstractCamera camera;
+    private AbstractScreen screen;
+    private AbstractCPU cpu;
+    private AbstractGPU gpu;
 
-    public Camera getCamera() {
+    public AbstractCamera getCamera() {
         return camera;
     }
 
-    public void setCamera(Camera camera) {
+    public void setCamera(AbstractCamera camera) {
         this.camera = camera;
     }
 
-    public Screen getScreen() {
+    public AbstractScreen getScreen() {
         return screen;
     }
 
-    public void setScreen(Screen screen) {
+    public void setScreen(AbstractScreen screen) {
         this.screen = screen;
     }
 
-    public CPU getCpu() {
+    public AbstractCPU getCpu() {
         return cpu;
     }
 
-    public void setCpu(CPU cpu) {
+    public void setCpu(AbstractCPU cpu) {
         this.cpu = cpu;
     }
 
-    public GPU getGpu() {
+    public AbstractGPU getGpu() {
         return gpu;
     }
 
-    public void setGpu(GPU gpu) {
+    public void setGpu(AbstractGPU gpu) {
         this.gpu = gpu;
     }
 
 }
 
 //具体产品
-class VIVOPhone extends Phone{}
-class HuaweiPhone extends Phone{}
+class VIVOPhone extends AbstractPhone{}
+class HuaweiPhone extends AbstractPhone{}
 
 //抽象组件
-abstract class Camera{}
-abstract class Screen{}
-abstract class CPU{}
-abstract class GPU{}
+abstract class AbstractCamera{}
+abstract class AbstractScreen{}
+abstract class AbstractCPU{}
+abstract class AbstractGPU{}
 
 //具体组件
-class LEICACamera extends Camera{}
-class SONYCamera extends Camera{}
+class LEICACamera extends AbstractCamera {}
+class SONYCamera extends AbstractCamera{}
 
-class FullScreen extends Screen{}
-class WaterDropletScreen extends Screen{}
+class FullScreen extends AbstractScreen{}
+class WaterDropletScreen extends AbstractScreen{}
 
-class SnapdragonCPU extends CPU{}
-class KirinCPU extends CPU{}
+class SnapdragonCPU extends AbstractCPU {}
+class KirinCPU extends AbstractCPU{}
 
-class AMDGPU extends GPU{}
-class NVIDIAGPU extends GPU{}
+class AMDGPU extends AbstractGPU{}
+class NVIDIAGPU extends AbstractGPU{}
 
 //抽象构建者
-abstract class PhoneBuilder{
+abstract class AbstractPhoneBuilder{
     public abstract void buildPhone();
     public abstract void buildCamera();
     public abstract void buildScreen();
     public abstract void buildCPU();
     public abstract void buildGPU();
-    public abstract Phone getResult();
+    public abstract AbstractPhone getResult();
 }
 
 //具体产品构建者
-class VIVOBuilder extends PhoneBuilder{
+class VIVOBuilder extends AbstractPhoneBuilder{
     //为了方便, 可以直接在此处实例化
-    private Phone vivoPhone;
+    private AbstractPhone vivoPhone;
 
     //懒加载, VIVOBuilder对象实例化完成, 不调用该方法则不实例化Phone
     @Override
@@ -133,14 +135,14 @@ class VIVOBuilder extends PhoneBuilder{
     }
 
     @Override
-    public Phone getResult(){
+    public AbstractPhone getResult(){
         return vivoPhone;
     }
 }
 
 //具体产品构建者
-class HuaweiBuilder extends PhoneBuilder{
-    private Phone huawei;
+class HuaweiBuilder extends AbstractPhoneBuilder{
+    private AbstractPhone huawei;
 
     @Override
     public void buildPhone() {
@@ -172,7 +174,7 @@ class HuaweiBuilder extends PhoneBuilder{
     }
 
     @Override
-    public Phone getResult() {
+    public AbstractPhone getResult() {
         return huawei;
     }
 }
@@ -181,7 +183,7 @@ class HuaweiBuilder extends PhoneBuilder{
 class PhoneDirector{
 
     //可以个性化定制(多写几个指挥方法)
-    public void construct(PhoneBuilder phoneBuilder){
+    public void construct(AbstractPhoneBuilder phoneBuilder){
         phoneBuilder.buildPhone();
         phoneBuilder.buildCamera();
         phoneBuilder.buildScreen();
