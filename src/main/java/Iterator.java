@@ -2,9 +2,10 @@ import java.util.NoSuchElementException;
 
 /**
  *  迭代器模式
- *      优点: 1.
+ *      优点: 1.隔离对容器的直接操作, 为容器提供一个顺序访问的方式
+ *           2.为遍历提供一套统一的接口
  *
- *      缺点: 1.
+ *      缺点: 1.基本上用不到, 编程语言已经为我们提供好了实现, 除非自定义新容器, 且底层使用最基本的数据结构
  */
 public class Iterator {
     
@@ -96,10 +97,10 @@ class Container<T> implements IContainer<T> {
 
 //具体迭代器
 class ContainerIterator<T> implements IContainerIterator<T>{
-    private Container<T> container;
+    private IContainer<T> container;
     private int cursor = 0;
 
-    public ContainerIterator(Container<T> container) {
+    public ContainerIterator(IContainer<T> container) {
         this.container = container;
     }
 
